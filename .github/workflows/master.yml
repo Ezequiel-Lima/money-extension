@@ -27,4 +27,4 @@ jobs:
       run: dotnet pack --configuration Release --output ./bin/Release
 
     - name: Publish
-      run: dotnet nuget push ./bin/Release/Quiel.MoneyExtensions.1.0.0.nupkg -k oy2aknmn2afsjupf5m3q4hztib5ox3pubcwnlpku4s6kyi -s https://api.nuget.org/
+      run: dotnet nuget push ./bin/Release/Quiel.MoneyExtensions.1.0.0.nupkg -k ${{ secrets.NUGET_TOKEN }} -s https://api.nuget.org/
