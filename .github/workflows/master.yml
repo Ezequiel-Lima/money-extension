@@ -30,5 +30,4 @@ jobs:
       uses: nuget/setup-nuget@v1
       with:
         nuget-api-key: ${{ secrets.NUGET_TOKEN }}
-        nuget-source: 'https://api.nuget.org/v3/index.json'
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
