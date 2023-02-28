@@ -26,10 +26,12 @@ jobs:
     - name: Create the Package
       run: dotnet pack --configuration Release 
 
+    - name: Download nuget.exe
+      run: |
+        curl -L -o nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+      shell: bash
+      
     - name: Publish to NuGet
-      uses: nuget/nuget-packaging@v2
-      with:
-        target: 'push'
-        nuget-api-key: ${{ secrets.NUGET_TOKEN }}
-        nuget-feed-url: 'https://api.nuget.org/v3/index.json'
-        package-path: './path/to/nupkg/*.nupkg'
+      run: |
+        ./nuget.exe push ./path/to/nupkg/*.nupkg -ApiKey ${{ secrets.NUGET_TOKEN }} -Source https://api.nuget.org/v3/index.json
+      shell: bash
