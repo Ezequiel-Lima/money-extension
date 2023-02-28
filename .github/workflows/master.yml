@@ -24,7 +24,7 @@ jobs:
       run: dotnet test
 
     - name: Create the Package
-      run: dotnet pack --configuration Release 
+      run: dotnet pack --configuration Release --output ./packages
 
     - name: Download nuget.exe
       run: |
@@ -34,5 +34,5 @@ jobs:
       
     - name: Publish to NuGet
       run: |
-        ./nuget.exe push ./path/to/nupkg/*.nupkg -ApiKey ${{ secrets.NUGET_TOKEN }} -Source https://api.nuget.org/v3/index.json
+        ./nuget.exe push ./packages/*.nupkg -ApiKey ${{ secrets.NUGET_TOKEN }} -Source https://api.nuget.org/v3/index.json
       shell: bash
