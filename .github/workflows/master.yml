@@ -28,7 +28,6 @@ jobs:
 
     - name: Publish Package to NuGet
       env:
-        nuget-source: https://api.nuget.org/v3/index.json
         nuget-api-key: ${{ secrets.NUGET_TOKEN }}
-      run: dotnet nuget push ./bin/Release/*.nupkg -s $nuget-source -k $nuget-api-key
+      run: dotnet nuget push ./bin/Release/*.nupkg -s https://api.nuget.org/v3/index.json -k $nuget-api-key
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
