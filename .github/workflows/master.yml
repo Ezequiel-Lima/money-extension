@@ -24,8 +24,12 @@ jobs:
       run: dotnet test
 
     - name: Create the Package
-      run: dotnet pack --configuration Release --output ./bin/Release
+      run: dotnet pack --configuration Release 
 
-    - name: Publish Package to NuGet
-      run: dotnet nuget push ./bin/Release/*.nupkg --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json 
-      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    - name: Publish to NuGet
+      uses: nuget/nuget-packaging@v2
+      with:
+        target: 'push'
+        nuget-api-key: ${{ secrets.NUGET_TOKEN }}
+        nuget-feed-url: 'https://api.nuget.org/v3/index.json'
+        package-path: './path/to/nupkg/*.nupkg'
